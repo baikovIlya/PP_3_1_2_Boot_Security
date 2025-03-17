@@ -1,7 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 

@@ -24,6 +24,16 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    @Override
+    public String getAuthority() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
+        return role;
+    }
+
     public int getId() {
         return id;
     }
@@ -46,15 +56,5 @@ public class Role implements GrantedAuthority {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    @Override
-    public String getAuthority() {
-        return role;
-    }
-
-    @Override
-    public String toString() {
-        return role;
     }
 }

@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -18,15 +19,10 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/")
-    public String showUsers(Model model) {
+    @GetMapping()
+    public String showUsers(ModelMap model) {
         model.addAttribute("users", userService.listUsers());
         return "admin";
-    }
-
-    @GetMapping(value = "/index")
-    public String startPage(Model model) {
-        return "index";
     }
 
     @GetMapping("/new")
@@ -34,10 +30,11 @@ public class AdminController {
         return "new";
     }
 
-    @PostMapping("/")
-    public String addUser(@ModelAttribute("user") User user, @RequestParam(name = "rolesList") String[] roles) {
+    @PostMapping()
+    public String addUser(@ModelAttribute("user") User user,
+                          @RequestParam(name = "rolesList") String[] roles) {
         userService.add(user, roles);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
@@ -52,12 +49,12 @@ public class AdminController {
                              @RequestParam(name = "rolesList") String[] roles) {
 
         userService.updateUser(id, user, roles);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUserById(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

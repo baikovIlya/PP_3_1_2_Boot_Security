@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserDetailsServiceImpl(UserDao userDao) {
@@ -25,16 +25,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getUserByEmail(username);
+
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new org.springframework.security.core.userdetails
-                .User(user.getEmail(), user.getPassword(), getAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(), getAuthority(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        return user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole()))
-                .collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> getAuthority(Collection<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRole())).collect(Collectors.toList());
     }
 }

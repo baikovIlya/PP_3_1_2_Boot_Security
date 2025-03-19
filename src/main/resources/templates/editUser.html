@@ -22,14 +22,14 @@
     <label for="email">Email: </label>
     <input type="email" th:field="*{email}" id="email" required/>
     <br/>
-    <label for="password">Email: </label>
+    <label for="password">Password: </label>
     <input type="password" th:field="*{password}" id="password" required/>
     <br/>
     <label for="roles">Choose roles: </label>
     <br/>
     <select name="rolesList" id="roles" size="2" multiple>
-        <option th:value="'ADMIN'" th:text="ADMIN"></option>
-        <option th:value="'USER'" th:text="USER" selected="selected"></option>
+        <option th:value="'ROLE_ADMIN'" th:text="ADMIN"></option>
+        <option th:value="'ROLE_USER'" th:text="USER" selected="selected"></option>
     </select>
     <br/>
     <input type="submit" value="Edit User"/>

@@ -1,16 +1,16 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -54,6 +54,9 @@ public class UserDaoImpl implements UserDao {
         userToBeUpdated.setAge(user.getAge());
         userToBeUpdated.setFirstName(user.getFirstName());
         userToBeUpdated.setSecondName(user.getSecondName());
+        userToBeUpdated.setEmail(user.getEmail());
+        userToBeUpdated.setPassword(user.getPassword());
+        userToBeUpdated.setRoles(user.getRoles());
         em.merge(userToBeUpdated);
     }
 }

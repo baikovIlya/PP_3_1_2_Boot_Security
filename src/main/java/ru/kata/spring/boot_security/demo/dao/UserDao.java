@@ -10,4 +10,5 @@ public interface UserDao {
     void deleteUserById(Integer id);
     void updateUser(Integer id, User user);
     User getUserById(Integer id);
+    User getUserByEmail(String email);
 }

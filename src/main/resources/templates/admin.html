@@ -6,6 +6,8 @@
     <style>table th, table td {padding: 5px}</style>
 </head>
 <body>
+<a th:href="@{/logout}">Logout</a>
+<br><br>
 <h1>Users</h1>
 <table>
     <tr>
@@ -13,23 +15,27 @@
         <th>First name</th>
         <th>Second name</th>
         <th>Age</th>
+        <th>Email</th>
+        <th>Roles</th>
     </tr>
     <tr th:each="user : ${users}">
         <td th:utext="${user.getId()}">Id</td>
         <td th:utext="${user.getFirstName()}">First name</td>
         <td th:utext="${user.getSecondName()}">Second name</td>
         <td th:utext="${user.getAge()}">Age</td>
+        <td th:utext="${user.getEmail()}">Email</td>
+        <td th:utext="${user.getRoles()}">Roles</td>
         <td>
-            <a href="#" th:href="@{/{id}/edit(id=${user.getId()})}" class="btn btn-primary">Edit</a>
+            <a href="#" th:href="@{/admin/{id}/edit(id=${user.getId()})}" class="btn btn-primary">Edit</a>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
+            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
                 <input type="submit" value="DELETE USER"/>
             </form>
         </td>
     </tr>
 </table>
 <br>
-<input type="button" value="Add User" onclick="window.location.href = 'new'">
+<input type="button" value="Add User" onclick="window.location.href = 'admin/new'">
 </body>
 </html>
